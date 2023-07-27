@@ -1,0 +1,10 @@
+# ignore all first
+*
+
+# then unignore all with extenstions
+!*/
+!*.c
+!*.md
+!*.MD
+!*.txt
+# Prerequisites
