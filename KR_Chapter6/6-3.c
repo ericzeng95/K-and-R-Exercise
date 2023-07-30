@@ -63,7 +63,7 @@ struct tnode *addTree(struct tnode *p, char *w, int lineNo) {
         p->line_list[p->line_count++] = lineNo;
         p->left = NULL;
         p->right = NULL;
-    } else if ((cond = strcmp(p->word, w) == 0)) {
+    } else if (((cond = strcmp(p->word, w)) == 0)) {
         p->line_list[p->line_count++] = lineNo;
     } else if (cond < 0) {
         p->left = addTree(p->left, w, lineNo);
