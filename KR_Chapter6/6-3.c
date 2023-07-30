@@ -31,12 +31,12 @@ int main(int argc, char *argv[]) {
     while (fgets(line, sizeof(line), f)) {
         char *word = strtok(line, " ");
         while (word) {
-            if (word[strlen(word) - 1] == '\n')
-                word[strlen(word) - 1] = '\0';
             char last = word[strlen(word) - 1];
+			if (last == '\0') break;
             if (!((last >= 'A' && last <= 'Z') ||
                   (last >= 'a' && last <= 'z'))) {
                 word[strlen(word) - 1] = '\0';
+				continue;
             }
             root = addTree(root, word, lineNo);
             word = strtok(NULL, " ");
@@ -56,19 +56,19 @@ struct tnode *talloc(void);
 /* at the bottom */
 struct tnode *addTree(struct tnode *p, char *w, int lineNo) {
     int cond;
-
+	*w = tolower(*w);
     if (!p) {
         p = talloc(); // assign a new
         p->word = strdUp(w);
         p->line_list[p->line_count++] = lineNo;
         p->left = NULL;
         p->right = NULL;
-    } else if ((cond = strcmp(p->word, w) == 0)) {
+    } else if (((cond = strcmp(p->word, w)) == 0)) {
         p->line_list[p->line_count++] = lineNo;
-    } else if (cond < 0) {
-        p->left = addTree(p->left, w, lineNo);
-    } else {
+    } else if (cond < 0) {  // cond < 0: p.word < w, add to right
         p->right = addTree(p->right, w, lineNo);
+    } else {
+        p->left = addTree(p->left, w, lineNo);
     }
     return p;
 }
