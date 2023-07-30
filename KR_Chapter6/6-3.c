@@ -33,6 +33,11 @@ int main(int argc, char *argv[]) {
         while (word) {
             if (word[strlen(word) - 1] == '\n')
                 word[strlen(word) - 1] = '\0';
+            char last = word[strlen(word) - 1];
+            if (!((last >= 'A' && last <= 'Z') ||
+                  (last >= 'a' && last <= 'z'))) {
+                word[strlen(word) - 1] = '\0';
+            }
             root = addTree(root, word, lineNo);
             word = strtok(NULL, " ");
         }
