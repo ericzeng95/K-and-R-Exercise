@@ -87,5 +87,11 @@ void addWordCount(char *w){
 	wcArray[totalWord++].count = 1;
 }
 
-
+void swap(struct word_count *a, struct word_count *b){
+	// swap two elements in an array of struct word_count
+	struct word_count tmp;
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
 
